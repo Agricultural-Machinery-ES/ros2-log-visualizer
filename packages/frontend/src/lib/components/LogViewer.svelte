@@ -2,12 +2,13 @@
   import type { LogEntry } from '../types';
   import { Search, Filter, ChevronDown, ListFilter, Regex } from '@lucide/svelte';
   import dayjs from 'dayjs';
+  import MultiSelect from './MultiSelect.svelte';
 
   let { logs, total, modules, filters = $bindable(), onLoadMore, loading } = $props<{
     logs: LogEntry[];
     total: number;
     modules: string[];
-    filters: { level: string; module: string; search: string; page: number; isRegex: boolean };
+    filters: { level: string[]; module: string[]; search: string; page: number; isRegex: boolean };
     onLoadMore: () => void;
     loading: boolean;
   }>();
@@ -52,31 +53,17 @@
     </div>
 
     <div class="flex gap-2">
-      <div class="relative">
-        <select
-          bind:value={filters.level}
-          class="appearance-none bg-gray-800 border border-gray-700 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-100"
-        >
-          <option value="">All Levels</option>
-          {#each levels as level}
-            <option value={level}>{level}</option>
-          {/each}
-        </select>
-        <ChevronDown class="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
-      </div>
+      <MultiSelect
+        options={levels}
+        bind:value={filters.level}
+        placeholder="All Levels"
+      />
 
-      <div class="relative">
-        <select
-          bind:value={filters.module}
-          class="appearance-none bg-gray-800 border border-gray-700 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-100"
-        >
-          <option value="">All Modules</option>
-          {#each modules as mod}
-            <option value={mod}>{mod}</option>
-          {/each}
-        </select>
-        <ChevronDown class="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
-      </div>
+      <MultiSelect
+        options={modules}
+        bind:value={filters.module}
+        placeholder="All Modules"
+      />
     </div>
 
     <div class="text-xs text-gray-500 ml-auto">

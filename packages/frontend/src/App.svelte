@@ -19,8 +19,8 @@
   let isResizing = $state(false);
 
   let filters = $state({
-    level: '',
-    module: '',
+    level: [] as string[],
+    module: [] as string[],
     search: '',
     isRegex: false,
     page: 1,
@@ -53,10 +53,21 @@
     }
   }
 
+  let prevSessionId = $state<string | null>(null);
+
   // Effect to reload logs when filters or active session change
   $effect(() => {
     // Explicitly track these dependencies
-    activeSessionId;
+    const currentSessionId = activeSessionId;
+    
+    if (currentSessionId !== untrack(() => prevSessionId)) {
+      untrack(() => {
+        filters.level = [];
+        filters.module = [];
+        prevSessionId = currentSessionId;
+      });
+    }
+
     filters.level;
     filters.module;
     filters.search;
@@ -151,6 +162,7 @@
   </div>
 
   <!-- Draggable Divider (Problem 4) -->
+  <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
   <div 
     role="separator"
     tabindex="-1"

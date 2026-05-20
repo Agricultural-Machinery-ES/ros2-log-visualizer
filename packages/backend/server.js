@@ -116,10 +116,12 @@ class LogParser {
     // Apply filters
     let filteredLogs = allLogs
     if (filters.level) {
-      filteredLogs = filteredLogs.filter(l => l.level === filters.level)
+      const levels = filters.level.split(',');
+      filteredLogs = filteredLogs.filter(l => levels.includes(l.level))
     }
     if (filters.module) {
-      filteredLogs = filteredLogs.filter(l => l.module === filters.module)
+      const modules = filters.module.split(',');
+      filteredLogs = filteredLogs.filter(l => modules.includes(l.module))
     }
     if (filters.search) {
       const search = filters.search.toLowerCase()
