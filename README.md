@@ -1,6 +1,6 @@
 # ROS2 Log Visualizer
 
-这是一个基于 Web 的 ROS2 日志可视化工具，包含前端（Svelte + Vite）和后端（Node.js + Hono）组成的工作区项目。
+一个基于 Web 的 ROS2 日志可视化工具，包含前端（Svelte + Vite）和后端（Node.js + Hono）组成的工作区。
 
 ## 环境要求
 
