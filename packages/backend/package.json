@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.0",
+    "chokidar": "^5.0.0",
+    "dayjs": "^1.11.10",
+    "fs-extra": "^11.2.0",
+    "hono": "^4.6.0"
+  }
+}
